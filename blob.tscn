@@ -1,18 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://cebbbdujadcb0"]
+[gd_scene load_steps=4 format=3 uid="uid://cebbbdujadcb0"]
 
 [ext_resource type="Texture2D" uid="uid://dsa3llr83tbf8" path="res://dodge_the_creeps_2d_assets/art/playerGrey_up1.png" id="1_6w6db"]
+[ext_resource type="Script" path="res://blob.gd" id="1_gdbcx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jgbif"]
 radius = 55.0818
 
-[node name="blob" type="Node2D"]
+[node name="blob" type="RigidBody2D"]
+max_contacts_reported = 5
+contact_monitor = true
+script = ExtResource("1_gdbcx")
+metadata/type = "basic"
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -13)
 shape = SubResource("CircleShape2D_jgbif")
 
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_6w6db")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
