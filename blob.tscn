@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://cebbbdujadcb0"]
+[gd_scene load_steps=3 format=3 uid="uid://cebbbdujadcb0"]
 
-[ext_resource type="Texture2D" uid="uid://dsa3llr83tbf8" path="res://dodge_the_creeps_2d_assets/art/playerGrey_up1.png" id="1_6w6db"]
 [ext_resource type="Script" path="res://blob.gd" id="1_gdbcx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jgbif"]
@@ -17,6 +16,5 @@ position = Vector2(0, -13)
 shape = SubResource("CircleShape2D_jgbif")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_6w6db")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
