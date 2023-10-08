@@ -3,20 +3,20 @@ extends RigidBody2D
 var basic_blob = preload("res://dodge_the_creeps_2d_assets/art/basic_blob.png")
 var special_blob = preload("res://dodge_the_creeps_2d_assets/art/special_blob.png")
 
-var blob_list = ["basic", "special"]
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	var blob_type = blob_list[rng.randi() % blob_list.size()]
-	self.set_meta("type", blob_type)
-	
+# constructor for blob
+func init(blob_type : String):
 	if blob_type == "special":
 		$Sprite2D.set_texture(special_blob)
 	elif blob_type == "basic":
 		$Sprite2D.set_texture(basic_blob)
-		
+	
+	self.set_meta("type", blob_type)
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
@@ -27,3 +27,4 @@ func _on_body_entered(body):
 		print("collided with blob-type: %s" % body.get_meta("type"))
 		if self.get_meta("type") == body.get_meta("type"):
 			body.queue_free()
+			self.queue_free()
