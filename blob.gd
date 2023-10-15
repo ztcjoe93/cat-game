@@ -2,8 +2,8 @@ class_name Blob extends RigidBody2D
 
 signal merge_signal(pos: Vector2)
 
-var basic_blob = preload("res://dodge_the_creeps_2d_assets/art/basic_blob.png")
-var special_blob = preload("res://dodge_the_creeps_2d_assets/art/special_blob.png")
+var basic_blob = preload("res://assets/white.png")
+var special_blob = preload("res://assets/brown.png")
 var rng = RandomNumberGenerator.new()
 var parent: MainContainer
 
@@ -34,7 +34,7 @@ func _process(delta):
 	pass
 
 
-func _on_body_entered(body: RigidBody2D) -> void:
+func _on_body_entered(body) -> void:
 	if body is Blob and can_merge(self, body):
 		merge_sequence(self, body)
 
@@ -53,7 +53,13 @@ func merge_sequence(blob1: Blob, blob2: Blob) -> void:
 	blob1.queue_free()
 	blob2.queue_free()
 	
-	parent.create_blob_at_coords(mp)
+	var bts: String
+	if self.blob_type == BlobType.SPECIAL:
+		bts = "basic"
+	elif self.blob_type == BlobType.BASIC:
+		bts = "special"
+		
+	parent.create_blob(bts, mp)
 
 
 func calculate_midpoint(pos1: Vector2, pos2: Vector2) -> Vector2:
