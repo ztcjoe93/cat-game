@@ -1,27 +1,17 @@
 class_name Blob extends RigidBody2D
 
-signal merge_signal(pos: Vector2)
-
-var basic_blob = preload("res://assets/white.png")
-var special_blob = preload("res://assets/brown.png")
 var rng = RandomNumberGenerator.new()
 var parent: MainContainer
 
-enum BlobType {BASIC, SPECIAL}
-
 # expose variables to be modifiable from either editor/get_properties_list()
 @export var merged: bool = false
-@export var blob_type: BlobType
+@export var blob_type: String
 
 # constructor for blob
 func NewBlob(type: String, pos: Vector2) -> void:
 	self.position = pos
-	if type == "basic":
-		$Sprite2D.set_texture(basic_blob)
-		self.blob_type = BlobType.BASIC
-	elif type == "special":
-		$Sprite2D.set_texture(special_blob)
-		self.blob_type = BlobType.SPECIAL		
+	self.blob_type = type
+	$Sprite2D.set_texture(Utilities.cat_map[type]["asset"])
 
 
 # Called when the node enters the scene tree for the first time.
@@ -40,7 +30,7 @@ func _on_body_entered(body) -> void:
 
 
 func can_merge(blob1: Blob, blob2: Blob) -> bool:
-	return (blob1.blob_type == blob2.blob_type and !blob1.merged and !blob2.merged)
+	return blob1.blob_type == blob2.blob_type and !blob1.merged and !blob2.merged
 
 
 # checks if blobs can be merged via type + pseudo merge mutex into new blob creation
@@ -53,13 +43,12 @@ func merge_sequence(blob1: Blob, blob2: Blob) -> void:
 	blob1.queue_free()
 	blob2.queue_free()
 	
-	var bts: String
-	if self.blob_type == BlobType.SPECIAL:
-		bts = "basic"
-	elif self.blob_type == BlobType.BASIC:
-		bts = "special"
-		
-	parent.create_blob(bts, mp)
+	var cat_idx: int = Utilities.cat_map[blob1.blob_type]["index"]+1
+	if cat_idx >= Utilities.cat_list.size():
+		get_tree().quit()
+	else:
+		var next_blob: String = Utilities.cat_list[Utilities.cat_map[blob1.blob_type]["index"]+1]
+		parent.create_blob(next_blob, mp)
 
 
 func calculate_midpoint(pos1: Vector2, pos2: Vector2) -> Vector2:

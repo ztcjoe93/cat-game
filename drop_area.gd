@@ -1,11 +1,7 @@
 extends Area2D
 
 var blob = load("res://blob.tscn")
-var blob_list = ["basic", "special"]
 var blob_type = ""
-
-var basic_blob = preload("res://assets/white.png")
-var special_blob = preload("res://assets/brown.png")
 
 var blob_ready: bool = false
 var within_drop_zone: bool = false
@@ -22,10 +18,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if not blob_ready:
-		rng.randomize()
-		blob_type = blob_list[rng.randi() % blob_list.size()]
-		set_cursor(blob_type)
-		blob_ready = true
+		blob_preparation()
 
 
 func _on_input_event(viewport, event, shape_idx):
@@ -38,18 +31,15 @@ func _on_input_event(viewport, event, shape_idx):
 
 
 func set_cursor(blob_type: String) -> void:
-	if blob_type == "basic":
-		Input.set_custom_mouse_cursor(basic_blob)
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	elif blob_type == "special":
-		Input.set_custom_mouse_cursor(special_blob)
+	if blob_type != "":
+		Input.set_custom_mouse_cursor(Utilities.cat_map[blob_type]["asset"])
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func blob_preparation() -> void:
 	rng.randomize()
-	blob_type = blob_list[rng.randi() % blob_list.size()]
+	blob_type = Utilities.cat_list[rng.randi() % Utilities.cat_list.size()]
 	set_cursor(blob_type)
 	blob_ready = true
 
