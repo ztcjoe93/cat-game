@@ -38,8 +38,7 @@ func set_cursor(blob_type: String) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func blob_preparation() -> void:
-	rng.randomize()
-	blob_type = Utilities.cat_list[rng.randi() % Utilities.cat_list.size()]
+	blob_type = Utilities.generate_blob(parent.level)
 	set_cursor(blob_type)
 	blob_ready = true
 

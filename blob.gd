@@ -1,6 +1,5 @@
 class_name Blob extends RigidBody2D
 
-var rng = RandomNumberGenerator.new()
 var parent: MainContainer
 
 # expose variables to be modifiable from either editor/get_properties_list()
