@@ -1,5 +1,6 @@
 extends Node
 
+var rng = RandomNumberGenerator.new()
 var cat_list: Array[String] = [
 	"napolean", "munchkin", "tabby",
 	"calico", "sphynx", "siamese",
@@ -59,6 +60,33 @@ var cat_map: Dictionary = {
 		"index": 9
 	}
 }
+
+# an array of probabilities for each type depending on the current level
+var probability_chart: Array[Array] = [
+	[0.9, 0.1],
+	[0.85, 0.1, 0.05],
+	[0.75, 0.1, 0.1, 0.05],
+	[0.7, 0.1, 0.1, 0.05, 0.05],
+	[0.55, 0.15, 0.1, 0.1, 0.05, 0.05],
+	[0.5, 0.15, 0.15, 0.1, 0.05, 0.05]	
+]
+
+# generates a blob based off level + probabililty chart distribution
+func generate_blob(level: int) -> String:
+	var probabilities: Array = probability_chart[level]
+	rng.randomize()
+	
+	var roll: float = rng.randf()
+	
+	for i in range(probabilities.size() - 1):
+		if i == 0:
+			if roll <= probabilities[i]:
+				return cat_list[i]
+		else:
+			if roll > probabilities[i-1] and roll <= probabilities[i+1]:
+				return cat_list[i]
+	
+	return cat_list[probabilities.size()-1]
 
 func preload_catmap() -> void:
 	for cat in cat_map:
