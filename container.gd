@@ -14,11 +14,15 @@ func _process(delta):
 
 func level_up() -> void:
 	level += 1
+	print("***********************level %s***********************" % level)
+	$HUD.update_level(level)
 
 func create_blob(type: String, pos: Vector2) -> void:
 	# not merge
 	if type == "":
 		type = Utilities.generate_blob(level)
+	elif Utilities.cat_map[type]["level"] > level:
+		level_up()
 	
 	var blob_inst: Blob = blob.instantiate()
 	blob_inst.NewBlob(type, pos)

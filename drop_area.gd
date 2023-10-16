@@ -39,6 +39,7 @@ func set_cursor(blob_type: String) -> void:
 
 func blob_preparation() -> void:
 	blob_type = Utilities.generate_blob(parent.level)
+	print("generated blob_type = %s" % blob_type)
 	set_cursor(blob_type)
 	blob_ready = true
 
