@@ -87,13 +87,15 @@ func generate_blob(level: int) -> String:
 	rng.randomize()
 	
 	var roll: float = rng.randf()
+	var rolling_probability: float = 0.0
 	for i in range(probabilities.size() - 1):
 		if i == 0:
 			if roll <= probabilities[i]:
 				return cat_list[i]
 		else:
-			if roll > probabilities[i-1] and roll <= probabilities[i+1]:
+			if roll > rolling_probability and roll <= rolling_probability + probabilities[i]:
 				return cat_list[i]
+		rolling_probability += probabilities[i]
 	
 	return cat_list[probabilities.size()-1]
 
