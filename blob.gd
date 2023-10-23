@@ -42,7 +42,7 @@ func merge_sequence(blob1: Blob, blob2: Blob) -> void:
 		parent.game_clear()
 	else:
 		var next_blob: String = Utilities.cat_list[Utilities.cat_map[blob1.blob_type]["index"]+1]
-		parent.create_blob(next_blob, mp)
+		parent.create_blob(next_blob, mp, blob1.linear_velocity)
 
 
 func calculate_midpoint(pos1: Vector2, pos2: Vector2) -> Vector2:

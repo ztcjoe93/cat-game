@@ -26,7 +26,7 @@ func game_clear() -> void:
 	print("cleared game, returning to menu...")
 	get_tree().change_scene_to_file("res://menu.tscn")
 
-func create_blob(type: String, pos: Vector2) -> void:
+func create_blob(type: String, pos: Vector2, force: Vector2 = Vector2(0,0)) -> void:
 	# not merge
 	if type == "":
 		type = Utilities.generate_blob(level)
@@ -35,4 +35,5 @@ func create_blob(type: String, pos: Vector2) -> void:
 	
 	var blob_inst: Blob = blob.instantiate()
 	blob_inst.NewBlob(type, pos)
+	blob_inst.add_constant_central_force(force)
 	self.call_deferred("add_child", blob_inst)
