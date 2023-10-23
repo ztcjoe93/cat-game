@@ -12,4 +12,5 @@ func _process(delta):
 
 
 func update_level(level):
-	$LevelLabel.text = str(level)
+	$HBoxContainer/LevelLabel.text = str(level)
+

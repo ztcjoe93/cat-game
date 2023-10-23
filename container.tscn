@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://container.gd" id="1_3v6ne"]
 [ext_resource type="PackedScene" uid="uid://bu5ay75i6f88c" path="res://wall.tscn" id="1_bprf4"]
 [ext_resource type="PackedScene" uid="uid://cdffi3swcbwri" path="res://drop_area.tscn" id="3_tgqne"]
-[ext_resource type="Script" path="res://HUD.gd" id="4_iqs77"]
+[ext_resource type="PackedScene" uid="uid://dxx3p6mmpntn1" path="res://HUD.tscn" id="4_2rmdf"]
 
 [node name="container" type="Node2D"]
 script = ExtResource("1_3v6ne")
@@ -12,13 +12,4 @@ script = ExtResource("1_3v6ne")
 
 [node name="DropArea" parent="." instance=ExtResource("3_tgqne")]
 
-[node name="HUD" type="CanvasLayer" parent="."]
-script = ExtResource("4_iqs77")
-
-[node name="LevelLabel" type="Label" parent="HUD"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 23.0
-grow_horizontal = 0
+[node name="HUD" parent="." instance=ExtResource("4_2rmdf")]

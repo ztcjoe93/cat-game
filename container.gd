@@ -14,7 +14,6 @@ func _process(delta):
 
 func level_up() -> void:
 	level += 1
-	print("***********************level %s***********************" % level)
 	$HUD.update_level(level)
 
 func create_blob(type: String, pos: Vector2) -> void:

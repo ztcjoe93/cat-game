@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c1aod4ddjusnp" path="res://assets/white.png" id="2_rk676"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jgbif"]
-radius = 54.1479
+radius = 48.0416
 
 [node name="blob" type="RigidBody2D"]
 max_contacts_reported = 25

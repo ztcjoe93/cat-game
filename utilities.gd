@@ -87,8 +87,6 @@ func generate_blob(level: int) -> String:
 	rng.randomize()
 	
 	var roll: float = rng.randf()
-	print("rolled %s" % roll)
-	
 	for i in range(probabilities.size() - 1):
 		if i == 0:
 			if roll <= probabilities[i]:
