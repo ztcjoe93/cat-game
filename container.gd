@@ -12,9 +12,19 @@ func _ready():
 func _process(delta):
 	pass
 
+func _input(event):
+	if Input.is_key_pressed(KEY_Q):
+		print("debug quit")
+		Input.set_custom_mouse_cursor(null)
+		game_clear()
+
 func level_up() -> void:
 	level += 1
 	$HUD.update_level(level)
+
+func game_clear() -> void:
+	print("cleared game, returning to menu...")
+	get_tree().change_scene_to_file("res://menu.tscn")
 
 func create_blob(type: String, pos: Vector2) -> void:
 	# not merge

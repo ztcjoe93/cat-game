@@ -18,11 +18,6 @@ func _ready():
 	parent = get_parent() as MainContainer
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _on_body_entered(body) -> void:
 	if body is Blob and can_merge(self, body):
 		merge_sequence(self, body)
@@ -44,7 +39,7 @@ func merge_sequence(blob1: Blob, blob2: Blob) -> void:
 	
 	var cat_idx: int = Utilities.cat_map[blob1.blob_type]["index"]+1
 	if cat_idx >= Utilities.cat_list.size():
-		get_tree().quit()
+		parent.game_clear()
 	else:
 		var next_blob: String = Utilities.cat_list[Utilities.cat_map[blob1.blob_type]["index"]+1]
 		parent.create_blob(next_blob, mp)
@@ -52,4 +47,3 @@ func merge_sequence(blob1: Blob, blob2: Blob) -> void:
 
 func calculate_midpoint(pos1: Vector2, pos2: Vector2) -> Vector2:
 	return Vector2((pos1.x + pos2.x)/2, ((pos1.y + pos2.y)/2))
-
