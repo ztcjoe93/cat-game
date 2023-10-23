@@ -18,8 +18,14 @@ func _input(event):
 		Input.set_custom_mouse_cursor(null)
 		game_clear()
 
+func level_up_anim() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property($HUD/LevelUpLabel, "theme_override_colors/font_color", Color.WHITE, 1.0)
+	tween.chain().tween_property($HUD/LevelUpLabel, "theme_override_colors/font_color", Color(255,255,255,0), 1.0).set_delay(1.0)
+
 func level_up() -> void:
 	level += 1
+	level_up_anim()
 	$HUD.update_level(level)
 
 func game_clear() -> void:
